@@ -131,6 +131,11 @@ const theme = extendTheme({
         overflowX: "hidden",
         color: "secondary.900",
       },
+      html: {
+        bg: "primary.200",
+        overflowX: "hidden",
+        color: "secondary.900",
+      },
       svg: {
         transiton: "fill 3s ease",
       },
