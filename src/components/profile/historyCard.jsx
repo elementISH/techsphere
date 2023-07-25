@@ -70,7 +70,6 @@ const OrderHistoryCard = ({ date, total, status, id, token }) => {
       const { message, data } = await response.json();
       if (response.ok) {
         dispatch(updateCart(data));
-        router.push("/cart");
         toast({
           title: message,
           status: "success",
