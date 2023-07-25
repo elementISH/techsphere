@@ -35,6 +35,8 @@ const Checkout = ({ user, token, isVerified }) => {
                 key={item.item_id}
                 name={item.item_product_name}
                 image={item.item_product_image}
+                price={item.item_product_price}
+                quantity={item.item_quantity}
               />
             ))}
           </SimpleGrid>
