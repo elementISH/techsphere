@@ -28,6 +28,7 @@ import { API_URL } from "@/utils/constants";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { fetchHistory } from "@/redux/features/history-slice";
+import { fetchFavorites } from "@/redux/features/favorites-slice";
 
 const Profile = ({ user, token, isVerified }) => {
   const params = useSearchParams();
@@ -36,6 +37,8 @@ const Profile = ({ user, token, isVerified }) => {
   const [selectedTab, setSelectedTab] = useState(+tab);
   useEffect(() => {
     setSelectedTab(tab);
+    dispatch(fetchHistory(token));
+    dispatch(fetchFavorites(token));
   }, [tab]);
   const favorites = useSelector((state) => state.favoritesReducer.value.items);
   const { orders } = useSelector((state) => state.historyReducer.value);

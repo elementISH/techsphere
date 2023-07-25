@@ -17,6 +17,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Clock, ExternalLink } from "react-feather";
 import { useDispatch } from "react-redux";
 const OrderHistoryCard = ({ date, total, status, id, token }) => {
@@ -55,6 +56,7 @@ const OrderHistoryCard = ({ date, total, status, id, token }) => {
       break;
   }
   const toast = useToast();
+  const router = useRouter();
   const dispatch = useDispatch();
   const handleReOrder = async () => {
     try {
@@ -68,6 +70,7 @@ const OrderHistoryCard = ({ date, total, status, id, token }) => {
       const { message, data } = await response.json();
       if (response.ok) {
         dispatch(updateCart(data));
+        router.push("/cart");
         toast({
           title: message,
           status: "success",

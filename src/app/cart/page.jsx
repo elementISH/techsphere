@@ -42,6 +42,7 @@ const Cart = ({ user, token }) => {
                 image={item.item_product_image}
                 price={item.item_product_price}
                 quantity={item.item_quantity}
+                stock={item.stock || 10}
                 token={token}
               />
             ))}

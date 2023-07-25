@@ -18,7 +18,15 @@ import { useDispatch } from "react-redux";
 import { updateCart } from "@/redux/features/cart-slice";
 import { useState } from "react";
 import { useMemo } from "react";
-const CartProductCard = ({ name, itemId, image, price, quantity, token }) => {
+const CartProductCard = ({
+  name,
+  itemId,
+  image,
+  price,
+  quantity,
+  token,
+  stock,
+}) => {
   const dispatch = useDispatch();
   const [qty, setQty] = useState(1);
   const updateQuantity = useMemo(() => setQty(quantity), [quantity]);
@@ -61,6 +69,7 @@ const CartProductCard = ({ name, itemId, image, price, quantity, token }) => {
       });
     }
   };
+
   const handleUpdateCartItemQuantity = async (quantity) => {
     try {
       const response = await fetch(API_URL + "/update-cart", {
@@ -69,7 +78,7 @@ const CartProductCard = ({ name, itemId, image, price, quantity, token }) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ cart_item_id: itemId, quantity: quantity }),
+        body: JSON.stringify({ cart_item_id: itemId, quantity }),
       });
       const { message, data } = await response.json();
       if (response.ok) {
@@ -146,22 +155,22 @@ const CartProductCard = ({ name, itemId, image, price, quantity, token }) => {
               {qty ? (
                 <QuantityInput
                   value={qty}
-                  step={1}
                   precision={0}
+                  step={1}
                   min={1}
-                  max={10}
+                  max={stock}
                   onIncrement={() => {
-                    setQty(qty + 1);
+                    if (qty !== stock) setQty(qty + 1);
                   }}
                   onDecrement={() => {
-                    setQty(qty - 1);
+                    if (qty !== 1) setQty(qty - 1);
                   }}
-                  onChange={(qty) => {
-                    setQty(qty);
-                  }}
+                  onChange={(qty) => setQty(qty)}
                   onBlur={() => {
                     handleUpdateCartItemQuantity(qty);
                   }}
+                  flex={1}
+                  width="100%"
                 />
               ) : null}
             </HStack>

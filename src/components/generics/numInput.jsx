@@ -27,8 +27,8 @@ const NumInput = ({
       step: step || 1.0,
       defaultValue: value,
       precision,
-      min,
-      max,
+      min: +min,
+      max: +max,
     });
 
   const input = getInputProps({
