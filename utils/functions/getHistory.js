@@ -9,6 +9,6 @@ export default async function getHistory(id, token) {
       cache: "force-cache",
     },
   });
-  if (!res.ok) throw new Error("failed to fetch invoice");
+  if (!res.ok) throw new Error("failed to fetch history");
   return await res.json();
 }

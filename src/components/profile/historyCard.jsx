@@ -67,7 +67,6 @@ const OrderHistoryCard = ({ date, total, status, id, token }) => {
       });
       const { message, data } = await response.json();
       if (response.ok) {
-        console.log(data);
         dispatch(updateCart(data));
         toast({
           title: message,
@@ -135,8 +134,6 @@ const OrderHistoryCard = ({ date, total, status, id, token }) => {
                 invoice
               </Button>
               <Button
-                as={Link}
-                href={`/cart`}
                 color="primary.100"
                 borderColor={"primary.500"}
                 leftIcon={<Icon as={Clock} />}

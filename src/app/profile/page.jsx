@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Icon,
   Tab,
@@ -15,22 +15,31 @@ import {
   Flex,
   Button,
   useToast,
+  Heading,
 } from "@chakra-ui/react";
 import { Clock, Heart, Settings, User } from "react-feather";
 import Form from "@/components/profile/form";
 import HistoryCard from "@/components/profile/historyCard";
 import FavoriteCard from "@/components/profile/favoriteCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UnAuth from "@/components/profile/unauthenticated";
 import VerifyEmailModal from "@/components/generics/verifyModal";
 import { API_URL } from "@/utils/constants";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { fetchHistory } from "@/redux/features/history-slice";
 
 const Profile = ({ user, token, isVerified }) => {
-  const [selectedTab, setSelectedTab] = useState(0);
+  const params = useSearchParams();
+  const tab = +params.get("tab");
+  const dispatch = useDispatch();
+  const [selectedTab, setSelectedTab] = useState(+tab);
+  useEffect(() => {
+    setSelectedTab(tab);
+  }, [tab]);
   const favorites = useSelector((state) => state.favoritesReducer.value.items);
   const { orders } = useSelector((state) => state.historyReducer.value);
-  const [isVerify, setIsVerify] = useState(false);
-
+  const [isVerify, setIsVerify] = useState(isVerified);
   const handleTabClick = (index) => {
     setSelectedTab(index);
   };
@@ -63,7 +72,6 @@ const Profile = ({ user, token, isVerified }) => {
         });
       }
     } catch (error) {
-      console.log(error);
       toast({
         title: "resending verification code failed",
         description: "Please try again later",
@@ -133,6 +141,7 @@ const Profile = ({ user, token, isVerified }) => {
             Favorite
           </Tab>
         </TabList>
+        <Divider />
         <TabIndicator
           mt="-1.5px"
           height="2px"
@@ -150,27 +159,65 @@ const Profile = ({ user, token, isVerified }) => {
             <Form userData={user} token={token} />
           </TabPanel>
           <TabPanel display="flex" flexDirection="column" gap={2}>
-            {orders?.map((history) => (
-              <HistoryCard
-                token={token}
-                key={history.id}
-                date={history.order_date}
-                total={history.total}
-                status={history.status}
-                id={history.id}
-              />
-            ))}
+            {orders?.length == 0 || !orders ? (
+              <>
+                <Heading textAlign={"center"}>
+                  you currently have no order history
+                </Heading>
+                <Button
+                  variant={"outline"}
+                  as={Link}
+                  href="/cart"
+                  borderColor={"primary.500"}
+                  w={"fit-content"}
+                  margin={"auto"}
+                  mt={5}
+                >
+                  view cart
+                </Button>
+              </>
+            ) : (
+              orders?.map((history) => (
+                <HistoryCard
+                  token={token}
+                  key={history.id}
+                  date={history.order_date}
+                  total={history.total}
+                  status={history.status}
+                  id={history.id}
+                />
+              ))
+            )}
           </TabPanel>
           <TabPanel display="flex" flexDirection="column" gap={2}>
-            {favorites?.map((favorite) => (
-              <FavoriteCard
-                key={favorite.id}
-                id={favorite.id}
-                name={favorite.name}
-                image={favorite.image}
-                price={favorite.price}
-              />
-            ))}
+            {favorites?.length == 0 ? (
+              <>
+                <Heading textAlign={"center"}>
+                  you currently have no favorites
+                </Heading>
+                <Button
+                  variant={"outline"}
+                  as={Link}
+                  href="/products"
+                  borderColor={"primary.500"}
+                  w={"fit-content"}
+                  margin={"auto"}
+                  mt={5}
+                >
+                  view products
+                </Button>
+              </>
+            ) : (
+              favorites?.map((favorite) => (
+                <FavoriteCard
+                  key={favorite.id}
+                  id={favorite.id}
+                  name={favorite.name}
+                  image={favorite.image}
+                  price={favorite.price}
+                />
+              ))
+            )}
           </TabPanel>
         </TabPanels>
       </Tabs>

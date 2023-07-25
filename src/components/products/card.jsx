@@ -13,11 +13,10 @@ import {
   Stack,
   Text,
   Divider,
-  Card,
   useToast,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Heart, ShoppingCart } from "react-feather";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -25,10 +24,9 @@ const ProductCard = ({ title, description, brand, price, image, id }) => {
   const favoriteIds = useSelector(
     (state) => state.favoritesReducer.value.favoriteIds
   );
-
   const dispatch = useDispatch();
   const token = useSelector((state) => state.authReducer.value.token);
-  const fill = useMemo(() => favoriteIds.includes(id), [favoriteIds]);
+  const fill = useMemo(() => favoriteIds.includes(+id), [favoriteIds]);
   const toast = useToast();
   const addFavorite = async () => {
     try {
@@ -185,13 +183,21 @@ const ProductCard = ({ title, description, brand, price, image, id }) => {
               p={5}
               h={"100%"}
             >
-              <Image src={image} flexShrink={0} w={"50%"} />
+              <Image
+                src={image}
+                flexShrink={0}
+                w={{ base: "100%", md: "50%" }}
+              />
             </Flex>
           </Box>
         </Link>
         <Divider />
         <Box>
-          <Flex p={5} justifyContent={"space-between"} direction={"row"}>
+          <Flex
+            p={5}
+            justifyContent={"space-between"}
+            direction={{ base: "column", md: "row" }}
+          >
             <Stack>
               <Heading color="primary.500" size={["sm", "md"]}>
                 <Link href={`/products/${id}`}>{title}</Link>
@@ -201,13 +207,19 @@ const ProductCard = ({ title, description, brand, price, image, id }) => {
             <Heading size={["sm", "md"]}>${price}</Heading>
           </Flex>
 
-          <Text flexShrink={0} noOfLines={3} px={5}>
+          <Text
+            flexShrink={0}
+            px={5}
+            noOfLines={3}
+            display={{ base: "none", md: "-webkit-box" }}
+          >
             {description}
           </Text>
-          <Stack p={5}>
+          <Stack p={5} pt={{ base: 0, md: 5 }}>
             <ButtonGroup
               as={Flex}
               justifyContent={"space-between"}
+              direction={{ base: "column-reverse", md: "row" }}
               alignItems={"center"}
               alignContent={"center"}
             >

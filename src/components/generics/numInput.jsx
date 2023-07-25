@@ -7,7 +7,8 @@ import {
   VStack,
   useNumberInput,
 } from "@chakra-ui/react";
-import { useMemo } from "react";
+import { useLayoutEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 
 const NumInput = ({
   label,
@@ -29,13 +30,18 @@ const NumInput = ({
       min,
       max,
     });
+
   const input = getInputProps({
     onChange: (event) => {
       const newValue = parseFloat(event.target.value);
       if (!isNaN(newValue) && newValue <= max && newValue >= min) {
         onChange(newValue);
       } else {
-        newValue <= max ? onChange(max) : onChange(min);
+        if (newValue <= max) {
+          onChange(min);
+        } else {
+          onChange(max);
+        }
       }
     },
     onBlur: (event) => {
@@ -44,7 +50,11 @@ const NumInput = ({
         onChange(newValue);
         onBlur();
       } else {
-        newValue <= max ? onChange(max) : onChange(min);
+        if (newValue <= max) {
+          onChange(min);
+        } else {
+          onChange(max);
+        }
         onBlur();
       }
     },

@@ -44,6 +44,7 @@ const Products = () => {
     "category_id[]": "",
     min_price: null,
     max_price: null,
+    name: null,
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
@@ -93,7 +94,16 @@ const Products = () => {
                   pointerEvents="none"
                   children={<Icon as={Search} color="gray.500" />}
                 />
-                <Input type="text" placeholder="Search..." />
+                <Input
+                  type="text"
+                  placeholder="Search..."
+                  onChange={(e) =>
+                    setFilter({
+                      ...filter,
+                      name: e.target.value,
+                    })
+                  }
+                />
               </InputGroup>
               <Stack></Stack>
               <Stack>
@@ -226,13 +236,16 @@ const Products = () => {
                   "category_id[]": "",
                   min_price: null,
                   max_price: null,
+                  name: null,
                 });
                 handleFilter({
                   "brand_id[]": "",
                   "category_id[]": "",
                   min_price: null,
                   max_price: null,
+                  name: null,
                 });
+                onClose();
               }}
               mr={3}
             >
@@ -242,6 +255,7 @@ const Products = () => {
               color={"primary.100"}
               onClick={() => {
                 handleFilter(filter);
+                onClose();
               }}
             >
               Filter
@@ -251,19 +265,19 @@ const Products = () => {
       </Drawer>
 
       <SimpleGrid
-        columns={{ base: 1, md: 3, lg: 4 }}
+        columns={{ base: 2, md: 3, lg: 4 }}
         spacing={5}
         mb={"5rem"}
-        justifyItems={"center"}
+        justifyItems={{ base: "", md: "center" }}
       >
         {isLoading
           ? Array.from({ length: 12 }).map((_, index) => (
-              <Box key={index} display={"flex"} maxW={"2xs"}>
+              <Box key={index} display={"flex"} maxW={"3xs"}>
                 <CardSkeleton />
               </Box>
             ))
           : products?.map((product) => (
-              <Box key={product.id}>
+              <Box key={product.id} maxW={"xs"}>
                 <Card
                   title={product.name}
                   image={product.image}

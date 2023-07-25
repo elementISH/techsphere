@@ -20,7 +20,7 @@ export const auth = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    updateProfileVerify: () => {
+    updateProfileVerify: (state, action) => {
       return (state = {
         value: {
           user: state.value.user,

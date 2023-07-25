@@ -129,15 +129,55 @@ const Navbar = () => {
                 spacing={6}
                 display={{ base: "flex", md: "none" }}
               >
-                <Button
-                  fontSize={"sm"}
-                  fontWeight={400}
-                  variant={"link"}
-                  onClick={onModalOpen}
-                  leftIcon={<Icon as={User} color="primary.500" w={5} h={5} />}
-                >
-                  Login
-                </Button>
+                {isAuth ? (
+                  <Popover>
+                    <PopoverTrigger>
+                      <Flex alignItems={"center"} cursor={"pointer"}>
+                        <Avatar src={image} size={"sm"}>
+                          <AvatarBadge boxSize="1.25em" bg="green.500" />
+                        </Avatar>
+                        <Box ml="3">
+                          <Text fontWeight="bold" w={"max-content"}>
+                            {name}
+                          </Text>
+                        </Box>
+                      </Flex>
+                    </PopoverTrigger>
+                    <PopoverContent
+                      alignItems={"center"}
+                      maxW={"10rem"}
+                      _focusVisible={{
+                        outline: "0",
+                      }}
+                    >
+                      <PopoverArrow />
+                      <PopoverCloseButton />
+                      <PopoverHeader>Actions</PopoverHeader>
+                      <PopoverBody>
+                        <ButtonGroup size="sm" flexDirection={"column"} gap={5}>
+                          <Button variant="link" as={Link} href={"/profile"}>
+                            Profile
+                          </Button>
+                          <Button variant="link" onClick={handleLogOut}>
+                            Logout
+                          </Button>
+                        </ButtonGroup>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                ) : (
+                  <Button
+                    fontSize={"sm"}
+                    fontWeight={400}
+                    variant={"link"}
+                    onClick={onModalOpen}
+                    leftIcon={
+                      <Icon as={User} color="primary.500" w={5} h={5} />
+                    }
+                  >
+                    Login
+                  </Button>
+                )}
               </Stack>
             </Flex>
 
@@ -291,9 +331,6 @@ const MobileNav = () => {
       </Button>
       <Button as={Link} w="fit-content" href="/contact" variant="ghost" p="0">
         Contact
-      </Button>
-      <Button as={Link} w="fit-content" href="/cart" variant="ghost" p="0">
-        Cart
       </Button>
     </Stack>
   );

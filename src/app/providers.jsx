@@ -8,6 +8,8 @@ import {
 } from "@chakra-ui/styled-system";
 import { store } from "@/redux/store";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(parts.keys);
 
@@ -128,12 +130,12 @@ const theme = extendTheme({
     global: {
       body: {
         bg: "primary.200",
-        overflowX: "hidden",
+        overflowX: "clip",
         color: "secondary.900",
       },
       html: {
         bg: "primary.200",
-        overflowX: "hidden",
+        overflowX: "clip",
         color: "secondary.900",
       },
       svg: {
@@ -177,11 +179,14 @@ const theme = extendTheme({
 });
 
 export function Providers({ children }) {
+  let persistor = persistStore(store);
   return (
     <Provider store={store}>
-      <CacheProvider>
-        <ChakraProvider theme={theme}>{children}</ChakraProvider>
-      </CacheProvider>
+      <PersistGate persistor={persistor}>
+        <CacheProvider>
+          <ChakraProvider theme={theme}>{children}</ChakraProvider>
+        </CacheProvider>
+      </PersistGate>
     </Provider>
   );
 }

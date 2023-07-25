@@ -33,9 +33,9 @@ export const fetchFilter = createAsyncThunk(
 
 const initialState = {
   value: {
-    products: null,
-    categories: null,
-    brands: null,
+    products: [],
+    categories: [],
+    brands: [],
     isLoading: true,
   },
 };

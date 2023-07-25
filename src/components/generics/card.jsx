@@ -27,7 +27,7 @@ const Card = ({ image, id, title, price }) => {
 
   const dispatch = useDispatch();
   const token = useSelector((state) => state.authReducer.value.token);
-  const fill = useMemo(() => favoriteIds.includes(id), [favoriteIds]);
+  const fill = useMemo(() => favoriteIds.includes(+id), [favoriteIds]);
   const toast = useToast();
   const addFavorite = async () => {
     try {

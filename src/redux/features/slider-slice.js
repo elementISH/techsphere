@@ -16,7 +16,7 @@ export const fetchSlider = createAsyncThunk("slider/fetchSlider", async () => {
 
 const initialState = {
   value: {
-    images: null,
+    images: [],
     isLoading: true,
   },
 };

@@ -1,19 +1,14 @@
 import {
   Box,
-  Button,
   Card,
   CardBody,
   CardFooter,
-  Flex,
   HStack,
   Heading,
   Icon,
   IconButton,
   Image,
-  Input,
   Stack,
-  Text,
-  useNumberInput,
   useToast,
 } from "@chakra-ui/react";
 import { Trash } from "react-feather";
@@ -21,19 +16,13 @@ import QuantityInput from "../generics/numInput";
 import { API_URL } from "@/utils/constants";
 import { useDispatch } from "react-redux";
 import { updateCart } from "@/redux/features/cart-slice";
-import { useEffect, useState } from "react";
-const CartProductCard = ({
-  name,
-  itemId,
-  productId,
-  image,
-  price,
-  quantity,
-  token,
-}) => {
+import { useState } from "react";
+import { useMemo } from "react";
+const CartProductCard = ({ name, itemId, image, price, quantity, token }) => {
   const dispatch = useDispatch();
+  const [qty, setQty] = useState(1);
+  const updateQuantity = useMemo(() => setQty(quantity), [quantity]);
   const toast = useToast();
-  const [qty, setQty] = useState(quantity);
   const handleRemoveFromCart = async () => {
     try {
       const response = await fetch(API_URL + "/remove-from-cart", {

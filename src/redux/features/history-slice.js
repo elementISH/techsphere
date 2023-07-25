@@ -2,7 +2,7 @@ import { API_URL } from "@/utils/constants";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchHistory = createAsyncThunk(
-  "auth/fetchHistory",
+  "history/fetchHistory",
   async (token) => {
     const res = await fetch(API_URL + "/order-history", {
       method: "GET",
@@ -13,6 +13,7 @@ export const fetchHistory = createAsyncThunk(
       },
     });
     const { data } = await res.json();
+    if (data.length == 0) return [];
     const { orders } = data;
     return orders;
   }
@@ -24,7 +25,7 @@ const initialState = {
   },
 };
 const historySlice = createSlice({
-  name: "cart",
+  name: "history",
   initialState,
   reducers: {
     resetHistory: (state, action) => {

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -6,9 +5,6 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  FormControl,
-  FormLabel,
-  Input,
   Button,
   Flex,
   HStack,
@@ -19,15 +15,11 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { API_URL } from "@/utils/constants";
-import { useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFavorites } from "@/redux/features/favorites-slice";
 import { fetchCart } from "@/redux/features/cart-slice";
 import { fetchHistory } from "@/redux/features/history-slice";
-import {
-  updateProfile,
-  updateProfileVerify,
-} from "@/redux/features/auth-slice";
+import { updateProfileVerify } from "@/redux/features/auth-slice";
 const VerifyEmailModal = ({ isOpen, setOpen }) => {
   const pin1 = useRef();
   const pin2 = useRef();

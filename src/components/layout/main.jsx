@@ -15,6 +15,7 @@ import {
   Icon,
   Stack,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { ChevronRight } from "react-feather";
@@ -64,7 +65,9 @@ const Main = ({ children }) => {
           {path != "home" ? (
             <>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                <BreadcrumbLink as={Link} href="/">
+                  Home
+                </BreadcrumbLink>
               </BreadcrumbItem>
               <Icon
                 as={ChevronRight}

@@ -46,7 +46,6 @@ const ProfileForm = ({ userData, token }) => {
     // image: imgSrc,
   };
   const handleSubmit = async (values) => {
-    console.log(values);
     // formData.append("image", values.image);
 
     fetch(API_URL + "/update-profile", {

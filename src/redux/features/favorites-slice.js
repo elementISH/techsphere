@@ -19,7 +19,7 @@ export const fetchFavorites = createAsyncThunk(
 
 const initialState = {
   value: {
-    items: null,
+    items: [],
     favoriteIds: [],
     isLoading: true,
   },

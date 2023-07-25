@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Container,
   Flex,
   Heading,
   Icon,
@@ -32,11 +33,13 @@ const Footer = () => {
             nostrum eaque porro qui! Dolorem nobis rerum dicta non minima hic
             officiis.
           </Text>
-          <Flex gap={5}>
-            <Icon as={Instagram} w={5} h={5} />
-            <Icon as={Linkedin} w={5} h={5} />
-            <Icon as={Facebook} w={5} h={5} />
-            <Icon as={Twitter} w={5} h={5} />
+          <Flex gap={5} direction={{ base: "column-reverse", md: "row" }}>
+            <Flex gap={5}>
+              <Icon as={Instagram} w={5} h={5} />
+              <Icon as={Linkedin} w={5} h={5} />
+              <Icon as={Facebook} w={5} h={5} />
+              <Icon as={Twitter} w={5} h={5} />
+            </Flex>
             <Flex gap={3}>
               <Button
                 as={Link}
@@ -129,6 +132,17 @@ const Footer = () => {
             fontSize={"sm"}
             color="secondary.100"
             fontWeight={400}
+            href={"/profile?tab=0"}
+            variant={"link"}
+            display={"block"}
+          >
+            Settings
+          </Button>
+          <Button
+            as={Link}
+            fontSize={"sm"}
+            color="secondary.100"
+            fontWeight={400}
             href={"/profile?tab=1"}
             variant={"link"}
             display={"block"}
@@ -145,17 +159,6 @@ const Footer = () => {
             display={"block"}
           >
             Favorite
-          </Button>
-          <Button
-            as={Link}
-            fontSize={"sm"}
-            color="secondary.100"
-            fontWeight={400}
-            href={"/profile"}
-            variant={"link"}
-            display={"block"}
-          >
-            Settings
           </Button>
         </Flex>
       </Stack>
