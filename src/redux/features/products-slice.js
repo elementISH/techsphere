@@ -29,12 +29,8 @@ const productsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      return (state = {
-        value: {
-          products: action.payload,
-          isLoading: false,
-        },
-      });
+      state.value.products = action.payload;
+      state.value.isLoading = false;
     });
   },
 });

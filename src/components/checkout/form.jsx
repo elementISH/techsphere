@@ -10,13 +10,11 @@ import {
   useToast,
   Flex,
 } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
-import { resetCart, updateCart } from "@/redux/features/cart-slice";
+import { useDispatch } from "react-redux";
+import { resetCart } from "@/redux/features/cart-slice";
 import { API_URL } from "@/utils/constants";
-import Link from "next/link";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { fetchHistory } from "@/redux/features/history-slice";
+import { fetchHistory, updateHistory } from "@/redux/features/history-slice";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -33,9 +31,25 @@ const CheckoutForm = ({ user, token, isVerified }) => {
     city: city || "",
     address: address || "",
   };
+
   const router = useRouter();
   const toast = useToast();
   const dispatch = useDispatch();
+  const fetchNewHistory = async (token) => {
+    const response = await fetch(API_URL + `/order-history`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        "Cache-Control": " no-cache, no-store, must-revalidate",
+      },
+    });
+    const { message, data } = await response.json();
+    if (response.ok) {
+      const { orders } = data;
+      dispatch(updateHistory(orders));
+    }
+  };
   const handleSubmit = async (values) => {
     if (!isVerified)
       return toast({
@@ -57,7 +71,7 @@ const CheckoutForm = ({ user, token, isVerified }) => {
         const { data, message } = result;
         router.push(`/invoice/${data.id}`);
         dispatch(resetCart());
-        dispatch(fetchHistory(token));
+        fetchNewHistory(token);
         toast({
           title: message,
           status: "success",

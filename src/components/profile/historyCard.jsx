@@ -64,11 +64,13 @@ const OrderHistoryCard = ({ date, total, status, id, token }) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "Cache-Control": " no-cache, no-store, must-revalidate",
           Authorization: `Bearer ${token}`,
         },
       });
       const { message, data } = await response.json();
       if (response.ok) {
+        console.log(data);
         dispatch(updateCart(data));
         toast({
           title: message,

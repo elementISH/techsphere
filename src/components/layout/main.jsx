@@ -1,6 +1,7 @@
 import { fetchFaqs } from "@/redux/features/faq-slice";
 import { fetchFavorites } from "@/redux/features/favorites-slice";
 import { fetchFilter, fetchFilterDetails } from "@/redux/features/filter-slice";
+import { fetchHistory } from "@/redux/features/history-slice";
 import { fetchProducts } from "@/redux/features/products-slice";
 import { fetchSlider } from "@/redux/features/slider-slice";
 import { fetchToken } from "@/redux/features/token-slice";
@@ -32,6 +33,7 @@ function getPathDetails(path) {
 }
 const Main = ({ children }) => {
   const path = getPathDetails(usePathname());
+  const { isAuth, token } = useSelector((state) => state.authReducer.value);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProducts());
@@ -40,6 +42,7 @@ const Main = ({ children }) => {
     dispatch(fetchFilterDetails());
     dispatch(fetchFilter());
     dispatch(fetchFaqs());
+    if (isAuth) dispatch(fetchHistory(token));
   }, []);
   return (
     <Container

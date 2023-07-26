@@ -39,8 +39,6 @@ function ArrowStyle() {
   return <style>{arrowStyle}</style>;
 }
 
-// TODO: add redux persist
-
 const Home = () => {
   const { products, isLoading } = useSelector(
     (state) => state.productsReducer.value

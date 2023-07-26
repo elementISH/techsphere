@@ -9,7 +9,8 @@ export const fetchHistory = createAsyncThunk(
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
-        cache: "force-cache",
+        "Cache-Control": " no-cache, no-store, must-revalidate",
+        cache: "no-store",
       },
     });
     const { data } = await res.json();
@@ -28,22 +29,20 @@ const historySlice = createSlice({
   name: "history",
   initialState,
   reducers: {
-    resetHistory: (state, action) => {
-      return (state = initialState);
+    resetHistory: (state) => initialState,
+    updateHistory: (state, action) => {
+      state.value.orders = action.payload;
+      state.value.isLoading = false;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchHistory.fulfilled, (state, action) => {
-      return (state = {
-        value: {
-          orders: action.payload,
-          isLoading: false,
-        },
-      });
+      state.value.orders = action.payload;
+      state.value.isLoading = false;
     });
   },
 });
 
-export const { resetHistory } = historySlice.actions;
+export const { resetHistory, updateHistory } = historySlice.actions;
 
 export default historySlice.reducer;

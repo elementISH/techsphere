@@ -23,7 +23,6 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["history", "favorites", "cart"],
 };
 
 const reducer = combineReducers({

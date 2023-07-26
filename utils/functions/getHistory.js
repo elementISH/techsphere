@@ -6,9 +6,9 @@ export default async function getHistory(id, token) {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
-      cache: "force-cache",
+      "Cache-Control": " no-cache, no-store, must-revalidate",
     },
   });
-  if (!res.ok) throw new Error("failed to fetch history");
+  if (!res.ok) return [];
   return await res.json();
 }

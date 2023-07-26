@@ -24,11 +24,7 @@ const tokenSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchToken.fulfilled, (state, action) => {
-      return (state = {
-        value: {
-          token: action.payload,
-        },
-      });
+      state.value.token = action.payload.token;
     });
   },
 });

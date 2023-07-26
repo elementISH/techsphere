@@ -44,36 +44,18 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     updateFilter: (state, action) => {
-      return (state = {
-        value: {
-          products: action.payload,
-          categories: state.value.categories,
-          brands: state.value.brands,
-          isLoading: false,
-        },
-      });
+      state.value.products = action.payload;
+      state.value.isLoading = false;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchFilter.fulfilled, (state, action) => {
-      return (state = {
-        value: {
-          products: action.payload,
-          categories: state.value.categories,
-          brands: state.value.brands,
-          isLoading: false,
-        },
-      });
+      state.value.products = action.payload;
+      state.value.isLoading = false;
     });
     builder.addCase(fetchFilterDetails.fulfilled, (state, action) => {
-      return (state = {
-        value: {
-          products: state.value.products,
-          categories: action.payload.categories,
-          brands: action.payload.brands,
-          isLoading: false,
-        },
-      });
+      state.value.categories = action.payload.categories;
+      state.value.brands = action.payload.brands;
     });
   },
 });

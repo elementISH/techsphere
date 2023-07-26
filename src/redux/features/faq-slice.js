@@ -26,12 +26,8 @@ const faqsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchFaqs.fulfilled, (state, action) => {
-      return (state = {
-        value: {
-          faqs: action.payload,
-          isLoading: false,
-        },
-      });
+      state.value.faqs = action.payload;
+      state.value.isLoading = false;
     });
   },
 });

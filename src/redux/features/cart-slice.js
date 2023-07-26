@@ -24,26 +24,16 @@ const cartSlice = createSlice({
   initialState,
 
   reducers: {
-    resetCart: (state, action) => {
-      return (state = initialState);
-    },
+    resetCart: (state) => initialState,
     updateCart: (state, action) => {
-      return (state = {
-        value: {
-          cart: action.payload,
-          isLoading: false,
-        },
-      });
+      state.value.cart = action.payload;
+      state.value.isLoading = false;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCart.fulfilled, (state, action) => {
-      return (state = {
-        value: {
-          cart: action.payload,
-          isLoading: false,
-        },
-      });
+      state.value.cart = action.payload;
+      state.value.isLoading = false;
     });
   },
 });

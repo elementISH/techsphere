@@ -24,7 +24,7 @@ import {
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { User } from "react-feather";
-import { logIn } from "@/redux/features/auth-slice";
+import { logIn, updateProfile } from "@/redux/features/auth-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { API_URL, CSRF_TOKEN } from "@/utils/constants";
 import { fetchFavorites } from "@/redux/features/favorites-slice";
@@ -94,7 +94,7 @@ const AuthModal = ({ isOpen, onClose }) => {
         const { message } = res;
         if (response.ok) {
           const { data } = res;
-          dispatch(logIn(await data));
+          dispatch(updateProfile(await data));
           dispatch(fetchFavorites(data.token));
           dispatch(fetchCart(data.token));
           dispatch(fetchHistory(data.token));
@@ -143,7 +143,7 @@ const AuthModal = ({ isOpen, onClose }) => {
       .then(async (response) => {
         const res = await response.json();
         const { data, message } = res;
-        dispatch(logIn(data));
+        dispatch(updateProfile(data));
         onClose();
         setIsVerify(true);
         if (response.ok) {

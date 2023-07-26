@@ -26,12 +26,8 @@ const sliderSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchSlider.fulfilled, (state, action) => {
-      return (state = {
-        value: {
-          images: action.payload,
-          isLoading: false,
-        },
-      });
+      state.value.images = action.payload;
+      state.value.isLoading = false;
     });
   },
 });

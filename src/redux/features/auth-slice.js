@@ -21,57 +21,24 @@ export const auth = createSlice({
   initialState,
   reducers: {
     updateProfileVerify: (state, action) => {
-      return (state = {
-        value: {
-          user: state.value.user,
-          isVerified: action.payload,
-          token: state.value.token,
-          isAuth: true,
-        },
-      });
+      state.value.isVerified = action.payload;
     },
-    logOut: (state, action) => {
-      return (state = initialState);
-    },
-    logIn: (state, action) => {
-      return (state = {
-        value: {
-          user: {
-            id: action.payload.user.id,
-            name: action.payload.user.name,
-            email: action.payload.user.email,
-            phone: action.payload.user.phone,
-            address: action.payload.user.address,
-            city: action.payload.user.city,
-            image: action.payload.user.image,
-          },
-          isVerified: action.payload.user.email_verified,
-          token: action.payload.token,
-          isAuth: true,
-        },
-      });
-    },
+    logOut: (state, action) => initialState,
     updateProfile: (state, action) => {
-      return (state = {
-        value: {
-          user: {
-            id: action.payload.id,
-            name: action.payload.name,
-            email: action.payload.email,
-            phone: action.payload.phone,
-            address: action.payload.address,
-            city: action.payload.city,
-            image: action.payload.image,
-          },
-          isVerified: action.payload.email_verified,
-          token: state.value.token,
-          isAuth: true,
-        },
-      });
+      state.value.user.id = action.payload.user.id;
+      state.value.user.name = action.payload.user.name;
+      state.value.user.email = action.payload.user.email;
+      state.value.user.phone = action.payload.user.phone;
+      state.value.user.address = action.payload.user.address;
+      state.value.user.city = action.payload.user.city;
+      state.value.user.email = action.payload.user.email;
+      state.value.user.image = action.payload.user.image;
+      state.value.isVerified = action.payload.user.email_verified;
+      state.value.token = action.payload.token;
+      state.value.isAuth = true;
     },
   },
 });
 
-export const { logIn, logOut, updateProfile, updateProfileVerify } =
-  auth.actions;
+export const { logOut, updateProfile, updateProfileVerify } = auth.actions;
 export default auth.reducer;

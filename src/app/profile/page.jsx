@@ -28,7 +28,6 @@ import { API_URL } from "@/utils/constants";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { fetchHistory } from "@/redux/features/history-slice";
-import { fetchFavorites } from "@/redux/features/favorites-slice";
 
 const Profile = ({ user, token, isVerified }) => {
   const params = useSearchParams();
@@ -37,11 +36,9 @@ const Profile = ({ user, token, isVerified }) => {
   const [selectedTab, setSelectedTab] = useState(+tab);
   useEffect(() => {
     setSelectedTab(tab);
-    dispatch(fetchHistory(token));
-    dispatch(fetchFavorites(token));
   }, [tab]);
-  const favorites = useSelector((state) => state.favoritesReducer.value.items);
-  const { orders } = useSelector((state) => state.historyReducer.value);
+  const { items } = useSelector((state) => state.favoritesReducer.value);
+  const orders = useSelector((state) => state.historyReducer.value.orders);
   const [isVerify, setIsVerify] = useState(isVerified);
   const handleTabClick = (index) => {
     setSelectedTab(index);
@@ -193,7 +190,7 @@ const Profile = ({ user, token, isVerified }) => {
             )}
           </TabPanel>
           <TabPanel display="flex" flexDirection="column" gap={2}>
-            {favorites?.length == 0 ? (
+            {items?.length == 0 ? (
               <>
                 <Heading textAlign={"center"}>
                   you currently have no favorites
@@ -211,7 +208,7 @@ const Profile = ({ user, token, isVerified }) => {
                 </Button>
               </>
             ) : (
-              favorites?.map((favorite) => (
+              items?.map((favorite) => (
                 <FavoriteCard
                   key={favorite.id}
                   id={favorite.id}

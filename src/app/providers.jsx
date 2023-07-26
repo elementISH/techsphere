@@ -182,7 +182,7 @@ export function Providers({ children }) {
   let persistor = persistStore(store);
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+      <PersistGate persistor={persistor} loading={null}>
         <CacheProvider>
           <ChakraProvider theme={theme}>{children}</ChakraProvider>
         </CacheProvider>

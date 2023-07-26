@@ -8,6 +8,6 @@ export default async function getDetails(id) {
       cache: "force-cache",
     },
   });
-  if (!res.ok) throw new Error("failed to fetch product");
+  if (!res.ok) return [];
   return await res.json();
 }

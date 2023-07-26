@@ -9,6 +9,7 @@ export const fetchFavorites = createAsyncThunk(
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
+        "Cache-Control": " no-cache, no-store, must-revalidate",
         cache: "force-cache",
       },
     });
@@ -28,29 +29,19 @@ const favoritesSlice = createSlice({
   name: "favorites",
   initialState,
   reducers: {
-    resetFavorites: (state, action) => {
-      return (state = initialState);
-    },
+    resetFavorites: (state) => initialState,
     updateFavorites: (state, action) => {
       const { items, favoriteIds } = action.payload;
-      return (state = {
-        value: {
-          items,
-          favoriteIds,
-          isLoading: false,
-        },
-      });
+      state.value.items = items;
+      state.value.favoriteIds = favoriteIds;
+      state.value.isLoading = false;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchFavorites.fulfilled, (state, action) => {
-      return (state = {
-        value: {
-          items: action.payload.items,
-          favoriteIds: action.payload.ids,
-          isLoading: false,
-        },
-      });
+      state.value.items = action.payload.items;
+      state.value.favoriteIds = action.payload.ids;
+      state.value.isLoading = false;
     });
   },
 });
