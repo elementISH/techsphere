@@ -22,7 +22,8 @@ import { Clock, ExternalLink } from "react-feather";
 import { useDispatch } from "react-redux";
 const OrderHistoryCard = ({ date, total, status, id, token }) => {
   let colorScheme, color;
-  switch (status) {
+  console.log(status);
+  switch (status.toLowerCase()) {
     case "new":
       color = "bonus.400";
       colorScheme = "badge.400";
