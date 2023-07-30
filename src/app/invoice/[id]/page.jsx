@@ -134,7 +134,7 @@ const AuthInvoice = ({ id, token, printing }) => {
               </HStack>
               <HStack justifyContent={"space-between"}>
                 <Text fontWeight={"bold"}>Email:</Text>
-                <Text>support@techsphere.com</Text>
+                <Text>support@techshare.com</Text>
               </HStack>
               <HStack justifyContent={"space-between"}>
                 <Text fontWeight={"bold"}>Phone:</Text>

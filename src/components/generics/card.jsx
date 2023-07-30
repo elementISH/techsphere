@@ -2,6 +2,7 @@ import { addToCart, updateCart } from "@/redux/features/cart-slice";
 import { updateFavorites } from "@/redux/features/favorites-slice";
 import { API_URL } from "@/utils/constants";
 import {
+  Badge,
   Box,
   Button,
   ButtonGroup,
@@ -20,7 +21,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Heart, ShoppingCart } from "react-feather";
 import { useDispatch, useSelector } from "react-redux";
 
-const Card = ({ image, id, title, price }) => {
+const Card = ({ image, id, title, price, discount }) => {
   const favoriteIds = useSelector(
     (state) => state.favoritesReducer.value.favoriteIds
   );
@@ -142,6 +143,7 @@ const Card = ({ image, id, title, price }) => {
         toast({
           title: message,
           status: "success",
+          position: "top-right",
           duration: 3000,
           isClosable: true,
         });
@@ -174,8 +176,21 @@ const Card = ({ image, id, title, price }) => {
       borderColor="secondary.300"
       borderRadius={30}
     >
-      <Link href={`/products/${id}`}>
-        <Box flex={1}>
+      <Link href={`/products/${id}`} style={{ position: "relative" }}>
+        {discount > 0 ? (
+          <Badge
+            colorScheme="red"
+            position={"absolute"}
+            right={0}
+            w={"50px"}
+            textAlign={"center"}
+            top={"1rem"}
+            transform={"rotate(45deg)"}
+          >
+            {discount}%
+          </Badge>
+        ) : null}
+        <Box flex={1} position={"relative"}>
           <Flex
             alignItems={"center"}
             justifyContent={"center"}

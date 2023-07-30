@@ -105,6 +105,7 @@ const Home = () => {
                     title={product.name}
                     price={product.price}
                     id={product.id}
+                    discount={product.discount}
                   />
                 </Box>
               ))}
@@ -145,6 +146,7 @@ const Home = () => {
                     title={product.name}
                     price={product.price}
                     id={product.id}
+                    discount={product.discount}
                   />
                 </Box>
               ))}

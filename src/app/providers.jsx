@@ -100,11 +100,11 @@ const colors = {
     100: "#ffffff",
   },
   bonus: {
-    900: "#FFDE74",
+    900: "#FFB774",
     500: "#F87B7B",
     400: "#64D0FF",
     300: "#FFC669",
-    200: "#BCF87B",
+    200: "#7BF8AD",
     100: "#FFF3CC",
   },
   badge: {
@@ -138,8 +138,8 @@ const theme = extendTheme({
         overflowX: "clip",
         color: "secondary.900",
       },
-      svg: {
-        transiton: "fill 3s ease",
+      "#chakra-toast-manager-top-right": {
+        top: "4rem !important",
       },
     },
   },

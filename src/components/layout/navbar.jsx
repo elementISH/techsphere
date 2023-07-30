@@ -36,6 +36,7 @@ import { resetFavorites } from "@/redux/features/favorites-slice";
 const Navbar = () => {
   const dispatch = useDispatch();
   const toast = useToast();
+  const cart_items_total = "";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isOpen, onToggle } = useDisclosure();
   const {
@@ -78,6 +79,7 @@ const Navbar = () => {
         });
       });
   };
+  const items = useSelector((state) => state.cartReducer.value.cart.cart_items);
   return (
     <>
       <Box as={"nav"} position={"sticky"} top={0} zIndex={100}>
@@ -136,11 +138,6 @@ const Navbar = () => {
                         <Avatar src={image} size={"sm"}>
                           <AvatarBadge boxSize="1.25em" bg="green.500" />
                         </Avatar>
-                        <Box ml="3">
-                          <Text fontWeight="bold" w={"max-content"}>
-                            {name}
-                          </Text>
-                        </Box>
                       </Flex>
                     </PopoverTrigger>
                     <PopoverContent
@@ -178,6 +175,46 @@ const Navbar = () => {
                     Login
                   </Button>
                 )}
+                {isAuth ? (
+                  <>
+                    <Box position={"relative"}>
+                      <Box
+                        border={"1px solid"}
+                        borderColor={"primary.500"}
+                        w={"1rem"}
+                        h={"1rem"}
+                        color={"primary.100"}
+                        position={"absolute"}
+                        borderRadius={"full"}
+                        fontWeight={"bold"}
+                        left={"0.75rem"}
+                        top={"-0.5rem"}
+                        background={"primary.500"}
+                      >
+                        <Text textAlign={"center"} fontSize={"xx-small"}>
+                          {items.length}
+                        </Text>
+                      </Box>
+                      <Button
+                        as={Link}
+                        fontSize={"sm"}
+                        fontWeight={400}
+                        variant={"link"}
+                        href={"/cart"}
+                        leftIcon={
+                          <Icon
+                            as={ShoppingCart}
+                            color="primary.500"
+                            w={5}
+                            h={5}
+                          />
+                        }
+                      >
+                        Cart
+                      </Button>
+                    </Box>
+                  </>
+                ) : null}
               </Stack>
             </Flex>
 
@@ -238,18 +275,44 @@ const Navbar = () => {
                 </Button>
               )}
               {isAuth ? (
-                <Button
-                  as={Link}
-                  fontSize={"sm"}
-                  fontWeight={400}
-                  variant={"link"}
-                  href={"/cart"}
-                  leftIcon={
-                    <Icon as={ShoppingCart} color="primary.500" w={5} h={5} />
-                  }
-                >
-                  Cart
-                </Button>
+                <>
+                  <Box position={"relative"}>
+                    <Box
+                      border={"1px solid"}
+                      borderColor={"primary.500"}
+                      w={"1rem"}
+                      h={"1rem"}
+                      color={"primary.100"}
+                      position={"absolute"}
+                      borderRadius={"full"}
+                      fontWeight={"bold"}
+                      left={"0.75rem"}
+                      top={"-0.5rem"}
+                      background={"primary.500"}
+                    >
+                      <Text textAlign={"center"} fontSize={"xx-small"}>
+                        {items.length}
+                      </Text>
+                    </Box>
+                    <Button
+                      as={Link}
+                      fontSize={"sm"}
+                      fontWeight={400}
+                      variant={"link"}
+                      href={"/cart"}
+                      leftIcon={
+                        <Icon
+                          as={ShoppingCart}
+                          color="primary.500"
+                          w={5}
+                          h={5}
+                        />
+                      }
+                    >
+                      Cart
+                    </Button>
+                  </Box>
+                </>
               ) : null}
             </Stack>
           </Container>

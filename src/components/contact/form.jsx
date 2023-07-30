@@ -166,13 +166,13 @@ const ContactForm = () => {
                     icon={MapPin}
                     heading={"visit us"}
                     subHeading={"speak to our team"}
-                    link={"support@techsphere.com"}
+                    link={"support@techshare.com"}
                   />
                   <ContactCard
                     icon={MessageCircle}
                     heading={"Chat with us"}
                     subHeading={"speak to our team"}
-                    link={"support@techsphere.com"}
+                    link={"support@techshare.com"}
                   />
                 </Flex>
               </Box>

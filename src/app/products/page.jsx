@@ -285,6 +285,7 @@ const Products = () => {
                   description={product.description}
                   price={product.price}
                   id={product.id}
+                  discount={product.discount}
                 />
               </Box>
             ))}

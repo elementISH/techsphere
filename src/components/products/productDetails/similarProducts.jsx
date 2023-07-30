@@ -87,6 +87,7 @@ const SimilarProducts = () => {
                   title={product.name}
                   price={product.price}
                   id={product.id}
+                  discount={product.discount}
                 />
               </Box>
             ))}

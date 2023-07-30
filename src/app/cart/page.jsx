@@ -42,11 +42,10 @@ const Cart = ({ user, token }) => {
                 image={item.item_product_image}
                 price={item.item_product_price}
                 quantity={item.item_quantity}
-                stock={item.stock || 10}
+                stock={item.item_product_stock}
                 token={token}
               />
             ))}
-            <Divider />
             <Box>
               <PriceCard total={total} />
             </Box>

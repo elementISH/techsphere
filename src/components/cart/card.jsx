@@ -27,6 +27,7 @@ const CartProductCard = ({
   token,
   stock,
 }) => {
+  console.log(stock);
   const dispatch = useDispatch();
   const [qty, setQty] = useState(1);
   const updateQuantity = useMemo(() => setQty(quantity), [quantity]);

@@ -14,13 +14,22 @@ import {
   Text,
   Divider,
   useToast,
+  Badge,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useMemo } from "react";
 import { Heart, ShoppingCart } from "react-feather";
 import { useDispatch, useSelector } from "react-redux";
 
-const ProductCard = ({ title, description, brand, price, image, id }) => {
+const ProductCard = ({
+  title,
+  description,
+  brand,
+  price,
+  image,
+  id,
+  discount,
+}) => {
   const favoriteIds = useSelector(
     (state) => state.favoritesReducer.value.favoriteIds
   );
@@ -141,6 +150,7 @@ const ProductCard = ({ title, description, brand, price, image, id }) => {
         toast({
           title: message,
           status: "success",
+          position: "top-right",
           duration: 3000,
           isClosable: true,
         });
@@ -175,19 +185,28 @@ const ProductCard = ({ title, description, brand, price, image, id }) => {
         borderRadius={30}
         flex={1}
       >
-        <Link href={`/products/${id}`}>
-          <Box flex={1}>
+        <Link href={`/products/${id}`} style={{ position: "relative" }}>
+          {discount > 0 ? (
+            <Badge
+              colorScheme="red"
+              position={"absolute"}
+              right={0}
+              w={"50px"}
+              textAlign={"center"}
+              top={"1rem"}
+              transform={"rotate(45deg)"}
+            >
+              {discount}%
+            </Badge>
+          ) : null}
+          <Box flex={1} position={"relative"}>
             <Flex
               alignItems={"center"}
               justifyContent={"center"}
               p={5}
               h={"100%"}
             >
-              <Image
-                src={image}
-                flexShrink={0}
-                w={{ base: "100%", md: "50%" }}
-              />
+              <Image src={image} flexShrink={0} w={"50%"} />
             </Flex>
           </Box>
         </Link>

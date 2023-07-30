@@ -166,6 +166,7 @@ function Details({ params: { id } }) {
         toast({
           title: message,
           status: "success",
+          position: "top-right",
           duration: 3000,
           isClosable: true,
         });

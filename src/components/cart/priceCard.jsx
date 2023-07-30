@@ -58,7 +58,7 @@ const CartPriceCard = ({ total }) => {
             variant={"outline"}
             borderColor={"primary.500"}
           >
-            add items
+            continue shopping
           </Button>
         </ButtonGroup>
       </Box>

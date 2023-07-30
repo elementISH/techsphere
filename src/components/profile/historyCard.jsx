@@ -22,7 +22,6 @@ import { Clock, ExternalLink } from "react-feather";
 import { useDispatch } from "react-redux";
 const OrderHistoryCard = ({ date, total, status, id, token }) => {
   let colorScheme, color;
-  console.log(status);
   switch (status.toLowerCase()) {
     case "new":
       color = "bonus.400";
@@ -51,8 +50,8 @@ const OrderHistoryCard = ({ date, total, status, id, token }) => {
       break;
 
     default:
-      color = "bonus.200";
-      colorScheme = "badge.200";
+      color = "bonus.400";
+      colorScheme = "badge.400";
 
       break;
   }
@@ -71,11 +70,12 @@ const OrderHistoryCard = ({ date, total, status, id, token }) => {
       });
       const { message, data } = await response.json();
       if (response.ok) {
-        console.log(data);
         dispatch(updateCart(data));
+        router.push("/cart");
         toast({
           title: message,
           status: "success",
+          position: "top-right",
           duration: 3000,
           isClosable: true,
         });
