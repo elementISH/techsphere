@@ -35,6 +35,7 @@ const AuthInvoice = ({ id, token, printing }) => {
   useEffect(() => {
     async function fetchHistory() {
       const res = await getHistory(id, token);
+      if (res.length == 0) return setInvoice("no-data");
       const { data } = res;
       setInvoice(data);
     }
@@ -94,6 +95,8 @@ const AuthInvoice = ({ id, token, printing }) => {
         <Skeleton height="30px" width="40%" ml={"60%"} />
       </>
     );
+  if (invoice == "no-data")
+    return <Heading textAlign={"center"}>order not found</Heading>;
   return (
     <>
       <Stack
@@ -149,7 +152,7 @@ const AuthInvoice = ({ id, token, printing }) => {
               </HStack>
               <HStack justifyContent={"space-between"}>
                 <Text fontWeight={"bold"}>Invoice Number:</Text>
-                <Text>2</Text>
+                <Text>{invoice.order_code}</Text>
               </HStack>
               <HStack justifyContent={"space-between"}>
                 <Text fontWeight={"bold"}>Order Number:</Text>
@@ -262,7 +265,11 @@ const Invoice = ({ params: { id } }) => {
       <>
         <Print
           trigger={
-            <Button color={"primary.100"} mb={5}>
+            <Button
+              color={"primary.100"}
+              mb={5}
+              display={invoice == "no-data" ? "none" : "block"}
+            >
               Print
             </Button>
           }

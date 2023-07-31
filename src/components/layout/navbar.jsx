@@ -79,7 +79,8 @@ const Navbar = () => {
         });
       });
   };
-  const items = useSelector((state) => state.cartReducer.value.cart.cart_items);
+  const items =
+    useSelector((state) => state.cartReducer.value.cart.cart_items) || [];
   return (
     <>
       <Box as={"nav"} position={"sticky"} top={0} zIndex={100}>
