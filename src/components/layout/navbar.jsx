@@ -131,6 +131,7 @@ const Navbar = () => {
                 direction={"row"}
                 spacing={6}
                 display={{ base: "flex", md: "none" }}
+                alignItems={"flex-end"}
               >
                 {isAuth ? (
                   <Popover>
@@ -225,6 +226,7 @@ const Navbar = () => {
               direction={"row"}
               spacing={6}
               display={{ base: "none", md: "flex" }}
+              alignItems={"flex-end"}
             >
               {isAuth ? (
                 <>
