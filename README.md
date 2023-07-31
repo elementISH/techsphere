@@ -47,4 +47,4 @@ yarn build
 pnpm build
 ```
 
-alternatively you can try the (demo here)["https://techsphere.vercel.app/"]
+alternatively you can try the [demo here]("https://techsphere.vercel.app/")
