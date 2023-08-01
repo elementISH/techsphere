@@ -29,18 +29,7 @@ import UnAuth from "@/components/invoice/unauthenticated";
 import moment from "moment/moment";
 import Print from "@/components/invoice/print";
 
-const AuthInvoice = ({ id, token, printing }) => {
-  const [invoice, setInvoice] = useState(null);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    async function fetchHistory() {
-      const res = await getHistory(id, token);
-      if (res.length == 0) return setInvoice("no-data");
-      const { data } = res;
-      setInvoice(data);
-    }
-    fetchHistory();
-  }, []);
+const AuthInvoice = ({ id, token, printing, invoice }) => {
   if (!invoice)
     return (
       <>
@@ -260,24 +249,34 @@ const Invoice = ({ params: { id } }) => {
   const { isAuth, token } = useSelector((state) => state.authReducer.value);
 
   if (!isAuth) return <UnAuth />;
-  else
-    return (
-      <>
-        <Print
-          trigger={
-            <Button
-              color={"primary.100"}
-              mb={5}
-              display={invoice == "no-data" ? "none" : "block"}
-            >
-              Print
-            </Button>
-          }
-        >
-          <AuthInvoice id={id} token={token} printing />
-        </Print>
-        <AuthInvoice id={id} token={token} />
-      </>
-    );
+  const [invoice, setInvoice] = useState(null);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    async function fetchHistory() {
+      const res = await getHistory(id, token);
+      if (res.length == 0) return setInvoice("no-data");
+      const { data } = res;
+      setInvoice(data);
+    }
+    fetchHistory();
+  }, []);
+  return (
+    <>
+      <Print
+        trigger={
+          <Button
+            color={"primary.100"}
+            mb={5}
+            display={invoice == "no-data" ? "none" : "block"}
+          >
+            Print
+          </Button>
+        }
+      >
+        <AuthInvoice id={id} token={token} printing invoice={invoice} />
+      </Print>
+      <AuthInvoice id={id} token={token} invoice={invoice} />
+    </>
+  );
 };
 export default Invoice;
