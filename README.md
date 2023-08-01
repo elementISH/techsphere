@@ -46,3 +46,5 @@ yarn build
 # or
 pnpm build
 ```
+
+alternatively you can try the [demo here](https://techsphere.vercel.app/)
