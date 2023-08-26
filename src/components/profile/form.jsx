@@ -91,7 +91,7 @@ const ProfileForm = ({ userData, token }) => {
               action={`${API_URL}/update-profile`}
               method="post"
             >
-              <Field name="image">
+           {/*   <Field name="image">
                 {({ field, form }) => (
                   <FormControl>
                     <Stack position={"relative"}>
@@ -136,7 +136,7 @@ const ProfileForm = ({ userData, token }) => {
                     </Stack>
                   </FormControl>
                 )}
-              </Field>
+              </Field> */}
               <Divider my={4} />
               <Grid
                 templateColumns={{ sm: "1fr", md: "repeat(2, 1fr)" }}
